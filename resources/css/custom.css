@@ -1,0 +1,10 @@
+.container-fluid .css-b62m3t-container .css-t3ipsp-control .css-hlgwow .css-19bb58m input[type='text']::-moz-focus-inner { 
+    border: 0 !important; 
+    outline: 0 !important;
+  }
+
+.container-fluid .css-b62m3t-container .css-t3ipsp-control .css-hlgwow .css-19bb58m input[type='text']::before, input[type='text']::after {
+    border: 0 !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+  }
