@@ -4,29 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use Inertia\Inertia;
-use Inertia\Response;
-use App\Models\Kriteria;
+use App\Models\Alternatif;
 use Illuminate\Http\Request;
 
-class KriteriaController extends Controller
+class AlternatifController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $kriteria = collect();
+        $alternatif = collect();
 
         if ($request->has('item_id') && $request->item_id != '') {
-            $kriteria = Kriteria::where('item_id', $request->item_id)->paginate(100);
+            $alternatif = Alternatif::where('item_id', $request->item_id)->paginate(100);
         }
         $items = Item::all();
-        return Inertia::render('Main/Kriteria', [
+        return Inertia::render('Main/Alternatif', [
             'item' => $items,
-            'kriteria' => $kriteria,
+            'alternatif' => $alternatif,
         ]);
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -43,27 +41,27 @@ class KriteriaController extends Controller
     {
         $validated = $request->validate([
             'item_id' => ['required'],
-            'kode_kriteria' => ['required'],
-            'nama_kriteria' => ['required'],
-            'sub_kriteria' => ['required'],
-            'status' => ['required'],
+            'kode_alternatif' => ['required'],
+            'nama_alternatif' => ['required'],
+            'telepon' => ['required'],
+            'alamat' => ['required'],
         ]);
 
-        Kriteria::create($validated);
+        Alternatif::create($validated);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show($item_id)
+    public function show(Alternatif $alternatif)
     {
-
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Kriteria $kriteria)
+    public function edit(Alternatif $alternatif)
     {
         //
     }
@@ -71,16 +69,17 @@ class KriteriaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Kriteria $kriteria)
+    public function update(Request $request, Alternatif $alternatif)
     {
-        $kriteria = Kriteria::findOrFail($request->id);
+        $alternatif = Alternatif::findOrFail($request->id);
         $validatedData = $request->validate([
-            'kode_kriteria' => ['required'],
-            'nama_kriteria' => ['required'],
-            'sub_kriteria' => ['required'],
-            'status' => ['required'],
+            'item_id' => ['required'],
+            'kode_alternatif' => ['required'],
+            'nama_alternatif' => ['required'],
+            'telepon' => ['required'],
+            'alamat' => ['required'],
         ]);
-        $kriteria->update($validatedData);
+        $alternatif->update($validatedData);
     }
 
     /**
@@ -88,7 +87,7 @@ class KriteriaController extends Controller
      */
     public function destroy($id)
     {
-        $kriteria = Kriteria::findOrFail($id);
-        $kriteria->delete();
+        $alternatif = Alternatif::findOrFail($id);
+        $alternatif->delete();
     }
 }

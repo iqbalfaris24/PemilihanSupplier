@@ -3,7 +3,6 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm, usePage, Link, router } from "@inertiajs/react";
 import Modal from "@/Components/Modal";
 import Selects from "@/Components/Selects";
-import { Inertia } from "@inertiajs/inertia";
 
 export default function Kriteria({ auth, option }) {
     const [selectedOption, setSelectedOption] = useState(() => {
@@ -368,7 +367,15 @@ export default function Kriteria({ auth, option }) {
                                                 </span>
                                             )}
                                         </td>
-                                        <td>{item.status}</td>
+                                        <td
+                                            className={`${
+                                                item.status === "Cost"
+                                                    ? `text-danger`
+                                                    : `text-success`
+                                            }`}
+                                        >
+                                            {item.status}
+                                        </td>
                                         <td>
                                             <div className="aksi">
                                                 <button

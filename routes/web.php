@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlternatifController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
@@ -60,9 +61,15 @@ Route::middleware('auth')->group(function () {
         'destroy' => 'subKriteria.destroy',
     ]);
 
-    Route::get('/alternatif', function () {
-        return Inertia::render('Main/Alternatif');
-    })->name('alternatif');
+    Route::resource('alternatif', AlternatifController::class)->names([
+        'index' => 'alternatif',
+        'create' => 'alternatif.create',
+        'store' => 'alternatif.store',
+        'show' => 'alternatif.show',
+        'edit' => 'alternatif.edit',
+        'update' => 'alternatif.update',
+        'destroy' => 'alternatif.destroy',
+    ]);
 
     Route::get('/hasil-akhir', function () {
         return Inertia::render('Main/HasilAkhir');

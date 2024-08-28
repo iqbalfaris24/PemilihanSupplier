@@ -38,6 +38,8 @@ export default function Item({ auth }) {
 
     const updateItem = (e) => {
         e.preventDefault();
+        console.log(data);
+
         patch(route("item.update", itemToEdit.id));
         reset();
         closeModal();

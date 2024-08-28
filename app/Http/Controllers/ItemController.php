@@ -62,12 +62,14 @@ class ItemController extends Controller
      */
     public function update(Request $request, Item $item)
     {
-        dd($item);
-        $validatedData = $request->validate([
-            'kode_item' => 'required',
-            'nama_item' => 'required',
-        ]);
-        $item->update($validatedData);
+        // $item = Item::findOrFail($request->id);
+        // $validatedData = $request->validate([
+        //     'kode_item' => 'required',
+        //     'nama_item' => 'required',
+        // ]);
+        $item->kode_item = $request->input('kode_item', $item->kode_item);
+        $item->nama_item = $request->input('nama_item', $item->nama_item);
+        $item->update();
     }
 
     /**
