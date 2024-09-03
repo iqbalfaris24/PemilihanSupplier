@@ -1,13 +1,13 @@
 <?php
 
 use App\Http\Controllers\AlternatifController;
+use App\Http\Controllers\PenilaianController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KriteriaController;
-use App\Http\Controllers\SubKriteriaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,15 +51,15 @@ Route::middleware('auth')->group(function () {
         'destroy' => 'kriteria.destroy',
     ]);
 
-    Route::resource('kriteria/sub-kriteria', SubKriteriaController::class)->names([
-        'index' => 'subKriteria',
-        'create' => 'subKriteria.create',
-        'store' => 'subKriteria.store',
-        'show' => 'subKriteria.show',
-        'edit' => 'subKriteria.edit',
-        'update' => 'subKriteria.update',
-        'destroy' => 'subKriteria.destroy',
-    ]);
+    // Route::resource('kriteria/sub-kriteria', SubKriteriaController::class)->names([
+    //     'index' => 'subKriteria',
+    //     'create' => 'subKriteria.create',
+    //     'store' => 'subKriteria.store',
+    //     'show' => 'subKriteria.show',
+    //     'edit' => 'subKriteria.edit',
+    //     'update' => 'subKriteria.update',
+    //     'destroy' => 'subKriteria.destroy',
+    // ]);
 
     Route::resource('alternatif', AlternatifController::class)->names([
         'index' => 'alternatif',
@@ -71,14 +71,20 @@ Route::middleware('auth')->group(function () {
         'destroy' => 'alternatif.destroy',
     ]);
 
+    Route::controller(PenilaianController::class)->group(function () {
+        Route::get('/penilaian', 'index')->name('penilaian');
+        Route::post('/penilaian', 'store')->name('');
+    });
+    // Route::prefix('penilaian')->group(function () {
+    //     Route::get('/', function () {
+    //         return Inertia::render('Main/Penilaian');
+    //     })->name('penilaian');
+    // });
+
+
     Route::get('/hasil-akhir', function () {
         return Inertia::render('Main/HasilAkhir');
     })->name('hasil-akhir');
-
-
-    Route::get('/penilaian', function () {
-        return Inertia::render('Main/Penilaian');
-    })->name('penilaian');
 
     Route::get('/perhitungan', function () {
         return Inertia::render('Main/Perhitungan');

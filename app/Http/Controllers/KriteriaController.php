@@ -45,7 +45,7 @@ class KriteriaController extends Controller
             'item_id' => ['required'],
             'kode_kriteria' => ['required'],
             'nama_kriteria' => ['required'],
-            'sub_kriteria' => ['required'],
+            'sub_kriteria' => ['nullable'],
             'status' => ['required'],
         ]);
 

@@ -187,18 +187,18 @@ export default function Kriteria({ auth, option }) {
                                                 onClick={() =>
                                                     setData(
                                                         "sub_kriteria",
-                                                        "Tidak"
+                                                        null
                                                     )
                                                 }
                                                 style={{
                                                     backgroundColor:
                                                         data.sub_kriteria ===
-                                                        "Tidak"
+                                                        null
                                                             ? "#E95C4F"
                                                             : "#ffffff",
                                                     color:
                                                         data.sub_kriteria ===
-                                                        "Tidak"
+                                                        null
                                                             ? "#fff"
                                                             : "#6c757d",
                                                     border: "none",

@@ -15,8 +15,8 @@ return new class extends Migration {
             $table->unsignedBigInteger('item_id');
             $table->string('kode_kriteria');
             $table->string('nama_kriteria');
-            $table->string('sub_kriteria');
             $table->string('status');
+            $table->text('sub_kriteria')->nullable();
             $table->timestamps();
             // Definisi Foreign Key
             $table->foreign('item_id')
