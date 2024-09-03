@@ -45,9 +45,11 @@ class KriteriaController extends Controller
             'item_id' => ['required'],
             'kode_kriteria' => ['required'],
             'nama_kriteria' => ['required'],
-            'sub_kriteria' => ['nullable'],
+            'sub_kriteria_status' => ['nullable'], // Pastikan ini adalah array
+            'sub_kriteria_data' => ['nullable', 'array'], // Pastikan ini adalah array
             'status' => ['required'],
         ]);
+        $validated['sub_kriteria_data'] = json_encode($validated['sub_kriteria_data']);
 
         Kriteria::create($validated);
     }
@@ -55,9 +57,14 @@ class KriteriaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($item_id)
+    public function show($kriteriaId)
     {
-
+        $kriteria = Kriteria::findOrFail($kriteriaId);
+        $subKriteria = $kriteria->sub_kriteria_data;
+        return Inertia::render('Main/SubKriteria', [
+            'kriteria' => $kriteria,
+            'subKriteria' => json_decode($subKriteria),
+        ]);
     }
 
     /**
@@ -73,14 +80,14 @@ class KriteriaController extends Controller
      */
     public function update(Request $request, Kriteria $kriteria)
     {
+        dd($request);
         $kriteria = Kriteria::findOrFail($request->id);
-        $validatedData = $request->validate([
-            'kode_kriteria' => ['required'],
-            'nama_kriteria' => ['required'],
-            'sub_kriteria' => ['required'],
-            'status' => ['required'],
-        ]);
-        $kriteria->update($validatedData);
+        $kriteria->kode_kriteria = $request->input('kode_kriteria', $kriteria->kode_kriteria);
+        $kriteria->nama_kriteria = $request->input('nama_kriteria', $kriteria->nama_kriteria);
+        $kriteria->sub_kriteria_status = $request->input('sub_kriteria_status', $kriteria->sub_kriteria_status);
+        $kriteria->sub_kriteria_data = json_encode($request->input('sub_kriteria_data', json_decode($kriteria->sub_kriteria_data)));
+        $kriteria->status = $request->input('status', $kriteria->status);
+        $kriteria->update();
     }
 
     /**

@@ -16,7 +16,8 @@ return new class extends Migration {
             $table->string('kode_kriteria');
             $table->string('nama_kriteria');
             $table->string('status');
-            $table->text('sub_kriteria')->nullable();
+            $table->text('sub_kriteria_status')->nullable();
+            $table->text('sub_kriteria_data')->nullable();
             $table->timestamps();
             // Definisi Foreign Key
             $table->foreign('item_id')

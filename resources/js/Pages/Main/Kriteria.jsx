@@ -34,7 +34,8 @@ export default function Kriteria({ auth, option }) {
         item_id: selectedOption?.value,
         kode_kriteria: "",
         nama_kriteria: "",
-        sub_kriteria: "Ya",
+        sub_kriteria_status: "Ya",
+        sub_kriteria_data: [],
         status: "Benefit",
     });
 
@@ -157,19 +158,19 @@ export default function Kriteria({ auth, option }) {
                                                 type="button"
                                                 onClick={() =>
                                                     setData(
-                                                        "sub_kriteria",
+                                                        "sub_kriteria_status",
                                                         "Ya"
                                                     )
                                                 }
                                                 style={{
                                                     backgroundColor:
-                                                        data.sub_kriteria ===
+                                                        data.sub_kriteria_status ===
                                                         "Ya"
                                                             ? "#28a745"
                                                             : "#f8f9fa",
 
                                                     color:
-                                                        data.sub_kriteria ===
+                                                        data.sub_kriteria_status ===
                                                         "Ya"
                                                             ? "#fff"
                                                             : "#000",
@@ -186,18 +187,18 @@ export default function Kriteria({ auth, option }) {
                                                 type="button"
                                                 onClick={() =>
                                                     setData(
-                                                        "sub_kriteria",
+                                                        "sub_kriteria_status",
                                                         null
                                                     )
                                                 }
                                                 style={{
                                                     backgroundColor:
-                                                        data.sub_kriteria ===
+                                                        data.sub_kriteria_status ===
                                                         null
                                                             ? "#E95C4F"
                                                             : "#ffffff",
                                                     color:
-                                                        data.sub_kriteria ===
+                                                        data.sub_kriteria_status ===
                                                         null
                                                             ? "#fff"
                                                             : "#6c757d",
@@ -347,11 +348,12 @@ export default function Kriteria({ auth, option }) {
                                         <td>{item.kode_kriteria}</td>
                                         <td>{item.nama_kriteria}</td>
                                         <td>
-                                            {item.sub_kriteria === "Ya" ? (
+                                            {item.sub_kriteria_status ===
+                                            "Ya" ? (
                                                 <Link
                                                     className="text-primary"
                                                     href={route(
-                                                        "subKriteria.show",
+                                                        "kriteria.show",
                                                         {
                                                             id: item.id,
                                                         }
