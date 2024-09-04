@@ -21,17 +21,18 @@ class PenilaianController extends Controller
         if ($request->has('item_id') && $request->item_id != '') {
             $item_id = $request->item_id;
             $item = Item::findOrFail($item_id);
-            $alternatif = $item->alternatif();
+            $alternatif = $item->alternatif;
             $kriteria = $item->kriteria;
-            dd($kriteria);
-            $sub_kriteria = $kriteria->subKriteria;
+            foreach ($kriteria as $item) {
+                $item->sub_kriteria_data = json_decode($item->sub_kriteria_data);
+            }
         }
         return Inertia::render('Main/Penilaian', [
             'items' => $items,
             'item' => $item,
             'alternatif' => $alternatif,
             'kriteria' => $kriteria,
-            'sub_kriteria' => $sub_kriteria,
+            // 'sub_kriteria' => $sub_kriteria,
         ]);
     }
 }

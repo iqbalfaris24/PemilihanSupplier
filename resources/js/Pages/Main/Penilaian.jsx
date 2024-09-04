@@ -10,9 +10,7 @@ export default function Penilaian({ auth }) {
         return savedOption ? JSON.parse(savedOption) : null;
     });
 
-    const { items } = usePage().props;
-    // console.log(usePage().props);
-
+    const { items, alternatif, kriteria } = usePage().props;
     const options = items.map((item) => ({
         value: item.id,
         label: item.nama_item,
@@ -21,7 +19,6 @@ export default function Penilaian({ auth }) {
     const handleSelectChange = (option) => {
         sessionStorage.setItem("selectedOption", JSON.stringify(option)); // Simpan pilihan ke localStorage
         router.visit(`/penilaian?item_id=${option.value}`, {});
-        console.log(usePage().props);
     };
 
     return (
@@ -39,7 +36,7 @@ export default function Penilaian({ auth }) {
             <div className="container-fluid">
                 {/* <!-- Page Heading --> */}
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 className="h3 mb-0 text-gray-800">Data Alternatif</h1>
+                    <h1 className="h3 mb-0 text-gray-800">Data Penilaian</h1>
                 </div>
                 <div className="col-3 mb-4 p-0">
                     <Selects
@@ -53,32 +50,70 @@ export default function Penilaian({ auth }) {
                 <div className=" bg-white p-6">
                     <div className="main-heading d-flex justify-content-between mb-3">
                         <h6 className="text-uppercase">
-                            DAFTAR DATA ALTERNATIF{" "}
+                            DAFTAR DATA PERHITUNGAN{" "}
                             <b>{selectedOption?.label}</b>
                         </h6>
-                        {selectedOption != null && (
-                            <button
-                                type="button"
-                                className="btn btn-success"
-                                onClick={() => setOpenModal(true)}
-                            >
-                                + Tambah Data
-                            </button>
-                        )}
+                        <h1></h1>
                     </div>
 
                     <table className="table table-bordered">
                         <thead>
                             <tr>
-                                <td>No</td>
-                                <td>Kode Alternatif</td>
                                 <td>Nama Alternatif</td>
-                                <td>Telepon</td>
-                                <td>Alamat</td>
-                                <td>Aksi</td>
+                                {kriteria?.map((kriteria) => (
+                                    <td key={kriteria.id}>
+                                        ({kriteria.kode_kriteria} )
+                                        {kriteria.nama_kriteria}
+                                    </td>
+                                ))}
                             </tr>
                         </thead>
-                        <tbody></tbody>
+                        <tbody>
+                            {alternatif?.map((item) => (
+                                <tr key={item.id}>
+                                    <td>
+                                        ({item.kode_alternatif}){" "}
+                                        {item.nama_alternatif}
+                                    </td>
+                                    {kriteria?.map((kriteria, index) =>
+                                        kriteria.sub_kriteria_status ===
+                                        "Ya" ? (
+                                            <td>
+                                                <select
+                                                    key={kriteria.id}
+                                                    name={
+                                                        kriteria.nama_kriteria
+                                                    }
+                                                    id=""
+                                                >
+                                                    {kriteria.sub_kriteria_data.map(
+                                                        (subkriteria) => (
+                                                            <option
+                                                                value={
+                                                                    subkriteria.nilai_subKriteria
+                                                                }
+                                                            >
+                                                                {
+                                                                    subkriteria.nama_subKriteria
+                                                                }
+                                                            </option>
+                                                        )
+                                                    )}
+                                                </select>
+                                            </td>
+                                        ) : (
+                                            <td>
+                                                <input
+                                                    type="text"
+                                                    name=""
+                                                    id=""
+                                                />
+                                            </td>
+                                        )
+                                    )}
+                                </tr>
+                            ))}
+                        </tbody>
                     </table>
                 </div>
             </div>

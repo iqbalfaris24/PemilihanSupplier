@@ -99,7 +99,7 @@ export default function Item({ auth }) {
                                         type="text"
                                         name="kode_item"
                                         placeholder="Kode Item"
-                                        value={
+                                        defaultValue={
                                             data.kode_item ||
                                             (itemToEdit
                                                 ? itemToEdit.kode_item
@@ -123,7 +123,7 @@ export default function Item({ auth }) {
                                         className="form-control"
                                         placeholder="Nama Item"
                                         name="nama_item"
-                                        value={
+                                        defaultValue={
                                             data.nama_item ||
                                             (itemToEdit
                                                 ? itemToEdit.nama_item

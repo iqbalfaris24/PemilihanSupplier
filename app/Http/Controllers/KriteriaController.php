@@ -19,6 +19,9 @@ class KriteriaController extends Controller
 
         if ($request->has('item_id') && $request->item_id != '') {
             $kriteria = Kriteria::where('item_id', $request->item_id)->paginate(100);
+            foreach ($kriteria as $item) {
+                $item->sub_kriteria_data = json_decode($item->sub_kriteria_data);
+            }
         }
         $items = Item::all();
         return Inertia::render('Main/Kriteria', [
@@ -41,6 +44,7 @@ class KriteriaController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $validated = $request->validate([
             'item_id' => ['required'],
             'kode_kriteria' => ['required'],
@@ -80,7 +84,6 @@ class KriteriaController extends Controller
      */
     public function update(Request $request, Kriteria $kriteria)
     {
-        dd($request);
         $kriteria = Kriteria::findOrFail($request->id);
         $kriteria->kode_kriteria = $request->input('kode_kriteria', $kriteria->kode_kriteria);
         $kriteria->nama_kriteria = $request->input('nama_kriteria', $kriteria->nama_kriteria);

@@ -29,7 +29,7 @@ export default function SubKriteria({ auth }) {
 
     const saveSubKriteria = (e) => {
         Inertia.patch(route("kriteria.update", kriteria.id), {
-            kriteria_id: kriteria.id,
+            id: kriteria.id,
             sub_kriteria_data: subKriteriaData,
         });
     };
